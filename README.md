@@ -77,6 +77,7 @@ ROLES=(
   "roles/compute.admin"                   # GCE 인스턴스 및 리소스 관리
   "roles/storage.admin"                   # Cloud Storage 버킷/객체 관리
   "roles/logging.viewer"                  # 로그 조회 및 분석 (RCA)
+  "roles/logging.logWriter"               # 로그 작성
   "roles/monitoring.viewer"               # 메트릭 모니터링
   "roles/cloudtrace.user"                 # 분산 트레이싱 분석  
   "roles/telemetry.tracesWriter"          # 분산 트레이싱 기록

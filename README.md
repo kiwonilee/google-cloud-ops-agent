@@ -1,6 +1,6 @@
-# gcp-ops-agent
+# google-cloud-ops-agent
 
-GCP Ops Agent for monitoring and managing GKE clusters and other GCP resources.
+Google Cloud Ops Agent
 이 에이전트는 **계층적 전문가 구조(Hierarchical Expert System)**를 사용하여 GKE, GCE, Storage, Logging, Monitoring 등 다양한 GCP 리소스를 지능적으로 관리합니다.
 
 ## 1. Prerequisites
@@ -31,9 +31,6 @@ export PROJECT_ID=$(gcloud config get-value project)
 ```bash
 # Install google-agents-cli
 uv tool install google-agents-cli
-
-# Path 설정 (필요시)
-export PATH="$HOME/.local/bin:$PATH"
 ```
 
 ## 2. Getting Started
@@ -47,7 +44,7 @@ gcloud auth application-default login
 ### Setup Environment Variables
 `.env` 파일에 각 서비스별 MCP 엔드포인트를 설정해야 합니다. (자세한 내용은 `.env.template` 참조)
 ```bash
-cd gcp_ops_agent
+cd google-cloud-ops-agent
 cp .env.template .env
 # PROJECT_ID 및 필요한 MCP_ENDPOINT_XXX 값들을 설정하세요.
 ```
@@ -64,8 +61,8 @@ agents-cli playground
 ### Create Service Account
 ```bash
 gcloud iam service-accounts create gcp-ops-agent-sa \
---description="Service account for GCP Ops Agent" \
---display-name="GCP Ops Agent SA"
+--description="Service account for Google Cloud Ops Agent" \
+--display-name="Google Cloud Ops Agent SA"
 ```
 
 ### Add IAM Policy Bindings

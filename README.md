@@ -129,7 +129,17 @@ done
  agents-cli playground
  ```
   
- ## 5. Deployment
+ > [!TIP]
+> **💡 에이전트 엔진 CLI 버전 호환성 관리 가이드**
+> `google-agents-cli` 프레임워크는 기능 및 배포 규격이 수시로 개선되며 빠르게 변경됩니다.
+> 만약 설치되어 실행 중인 CLI 엔진 버전(0.2.0)과 실제 작업 공간의 에이전트 템플릿(0.1.2) 버전 사이에 불일치가 생긴다면, 배포(`deploy`) 도중 예상치 못한 빌드 실패나 `AttributeError: 'NoneType' object has no attribute 'name'` 과 같은 Null Pointer 런타임 오류가 발생할 수 있습니다.
+> 
+> 이러한 호환성 오류를 사전에 방지하기 위해 아래와 같은 운영 관리를 권장합니다:
+> 1. **주기적 CLI 업데이트**: 가끔 `uv tool upgrade google-agents-cli`를 실행하여 도구를 최신으로 유지해 주십시오.
+> 2. **버전 미스매치 경고 시 예방 정비**: 배포 명령어 실행 전 `Version mismatch: project was scaffolded with...` 경고가 터미널에 나타나면 지체 없이 **`agents-cli scaffold upgrade`** 명령을 기동하십시오.
+>    * 해당 명령어는 프로젝트 구조가 이미 최신 스펙에 맞춰 최적화되어 있다면 코드의 손상 없이 안전하게 진행을 스킵(`already at version X.Y.Z`)하므로, 빌드 전 상시 수행해 주시면 버전 충돌 사고를 예방하는 훌륭한 모범 사례(Best Practice)가 됩니다.
+
+## 5. Deployment
  agents-cli 로 배포 시 .env 를 참조하지 않아 --update-env-vars 로 필요한 값을 전달해야 합니다. MCP 엔드포인트들은 기본 설정이 내장되어 있으므로 기본 사양 외의 특별한 환경 변수들만 추가해 줍니다.
  ```bash
  agents-cli deploy \

@@ -13,6 +13,31 @@ logger = logging.getLogger("google_adk.gcp_ops_agent.tools")
 load_dotenv()
 
 # -----------------------------------------------------------------------------
+# Default MCP Endpoints (기본 MCP 엔드포인트 설정)
+# -----------------------------------------------------------------------------
+MCP_ENDPOINT_COMPUTE_ENGINE = "https://compute.googleapis.com/mcp"
+MCP_ENDPOINT_CLOUD_RUN = "https://run.googleapis.com/mcp"
+MCP_ENDPOINT_KUBERNETES_ENGINE = "https://container.googleapis.com/mcp"
+
+MCP_ENDPOINT_CLOUD_STORAGE = "https://storage.googleapis.com/storage/mcp"
+MCP_ENDPOINT_NETWORK_MANAGEMENT = "https://networkmanagement.googleapis.com/mcp"
+
+MCP_ENDPOINT_GEMINI_CLOUD_ASSIST = "https://geminicloudassist.googleapis.com/mcp"
+
+MCP_ENDPOINT_CLOUD_TRACE = "https://cloudtrace.googleapis.com/mcp"
+MCP_ENDPOINT_CLOUD_LOGGING = "https://logging.googleapis.com/mcp"
+MCP_ENDPOINT_CLOUD_MONITORING = "https://monitoring.googleapis.com/mcp"
+MCP_ENDPOINT_ERROR_REPORTING = "https://clouderrorreporting.googleapis.com/mcp"
+
+MCP_ENDPOINT_BIGQUERY = "https://bigquery.googleapis.com/mcp"
+MCP_ENDPOINT_BIGTABLE = "https://bigtableadmin.googleapis.com/mcp"
+MCP_ENDPOINT_CLOUD_SQL = "https://sqladmin.googleapis.com/mcp"
+MCP_ENDPOINT_FIRESTORE = "https://firestore.googleapis.com/mcp"
+MCP_ENDPOINT_ALLOYDB = "https://alloydb.googleapis.com/mcp"
+MCP_ENDPOINT_DATABASE_CENTER = "https://databasecenter.googleapis.com/mcp"
+MCP_ENDPOINT_DATABASE_INSIGHTS = "https://databaseinsights.googleapis.com/mcp"
+
+# -----------------------------------------------------------------------------
 # MCP Service Definitions
 # -----------------------------------------------------------------------------
 MCP_SERVICES = {
@@ -67,8 +92,12 @@ class McpManager:
             env_key = f"MCP_ENDPOINT_{name.upper()}"
             url = os.getenv(env_key)
 
+            # 환경 변수가 정의되지 않은 경우, tools.py에 하드코딩된 기본값 사용
             if not url:
-                logger.warning(f"환경 변수 {env_key}가 설정되지 않아 '{name}' MCP Toolset을 건너뜁니다.")
+                url = globals().get(env_key)
+
+            if not url:
+                logger.warning(f"환경 변수 {env_key} 및 기본 엔드포인트가 모두 설정되지 않아 '{name}' MCP Toolset을 건너뜁니다.")
                 return None
 
             try:
